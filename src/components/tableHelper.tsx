@@ -14,7 +14,6 @@ export function returnData(data: Data) {
 }
 
 export function filterData(search: string, data: Data[]) {
-  console.log(Object.entries(data).forEach((e) => console.log(e)));
   return Object.entries(data).some(
     ([key, value]) =>
       "description".includes(key) && String(value).includes(search)

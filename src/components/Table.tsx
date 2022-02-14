@@ -3,8 +3,8 @@ import { Data, Response } from "../Interfaces/table";
 import { filterData, returnData } from "./tableHelper";
 
 export const Table: React.FC = () => {
-  const [search, setSearch] = useState("");
-  const [data, setData] = useState([]) as any;
+  const [search, setSearch] = useState<string>("");
+  const [data, setData] = useState<[]>([]) as any;
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
@@ -12,10 +12,8 @@ export const Table: React.FC = () => {
   useEffect(() => {
     fetch("./db.json")
       .then((response): Promise<Response> => response.json())
-      .then((parsedData) => setData(parsedData.response.data));
+      .then((parsedData): Data[] => setData(parsedData.response.data));
   }, []);
-
-  console.log(data);
 
   const rows: [string][] = [
     ["WO ID"],
@@ -46,8 +44,8 @@ export const Table: React.FC = () => {
           </thead>
           <tbody>
             {data
-              .filter((item: Data[]) => filterData(search, item))
-              .map((item: Data) => returnData(item))}
+              .filter((item: Data[]): boolean => filterData(search, item))
+              .map((item: Data): JSX.Element => returnData(item))}
           </tbody>
         </table>
       </div>

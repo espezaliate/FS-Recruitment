@@ -7,7 +7,7 @@ export default function useData(fetchPath: string) {
     fetch(fetchPath)
       .then((response): Promise<Response> => response.json())
       .then((parsedData): Data[] => setData(parsedData.response.data));
-  }, []);
+  }, [fetchPath]);
 
   return data;
 }

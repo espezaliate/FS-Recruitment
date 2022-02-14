@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Response, Data } from "../Interfaces/table";
+import ReturnData from "./tableHelper";
 
 export const Table: React.FC = () => {
   const [search, setSearch] = useState("");
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]) as any;
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
@@ -11,9 +12,7 @@ export const Table: React.FC = () => {
   useEffect(() => {
     fetch("./db.json")
       .then((response): Promise<Response> => response.json())
-      .then((parsedData) => {
-        setData(parsedData.response.data);
-      });
+      .then((parsedData) => setData(parsedData.response.data));
   }, []);
 
   console.log(data);
@@ -22,6 +21,7 @@ export const Table: React.FC = () => {
     ["WO ID"],
     ["Description"],
     ["Received date"],
+    ["Assigned to"],
     ["Status"],
     ["Priority"],
   ];
@@ -38,13 +38,13 @@ export const Table: React.FC = () => {
       <div className="center">
         <table>
           <thead>
-            {rows.map((e) => (
-              <tr>
+            <tr>
+              {rows.map((e: [string]) => (
                 <th>{e}</th>
-              </tr>
-            ))}
+              ))}
+            </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>{data.map((e: Data) => ReturnData(e))}</tbody>
         </table>
       </div>
     </div>

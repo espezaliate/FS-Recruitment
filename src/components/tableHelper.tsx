@@ -1,6 +1,6 @@
 import { Data } from "../Interfaces/table";
 
-export default function ReturnData(data: Data) {
+export function ReturnData(data: Data) {
   return (
     <tr key={data.work_order_id}>
       <td>{data.work_order_id}</td>
@@ -11,4 +11,14 @@ export default function ReturnData(data: Data) {
       <td>{data.priority}</td>
     </tr>
   );
+}
+
+export function filterData(search: string, data: Data[]) {
+  return Object.entries(data).some(([, value]) =>
+    String(value).toLowerCase().includes(search)
+  );
+}
+
+export function mapList(data: Data[]) {
+  return data.map((e: Data) => ReturnData(e));
 }

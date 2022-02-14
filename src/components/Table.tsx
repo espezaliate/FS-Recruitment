@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Data, Response } from "../Interfaces/table";
-import { filterData, ReturnData, mapList } from "./tableHelper";
+import { filterData, returnData } from "./tableHelper";
 
 export const Table: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -40,14 +40,14 @@ export const Table: React.FC = () => {
           <thead>
             <tr>
               {rows.map((e: [string]) => (
-                <th>{e}</th>
+                <th key={e[0]}>{e}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {data
               .filter((item: Data[]) => filterData(search, item))
-              .map((item: Data) => ReturnData(item))}
+              .map((item: Data) => returnData(item))}
           </tbody>
         </table>
       </div>

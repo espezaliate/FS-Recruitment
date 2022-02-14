@@ -1,6 +1,6 @@
 import { Data } from "../Interfaces/table";
 
-export function ReturnData(data: Data) {
+export function returnData(data: Data) {
   return (
     <tr key={data.work_order_id}>
       <td>{data.work_order_id}</td>
@@ -14,11 +14,9 @@ export function ReturnData(data: Data) {
 }
 
 export function filterData(search: string, data: Data[]) {
-  return Object.entries(data).some(([, value]) =>
-    String(value).toLowerCase().includes(search)
+  console.log(Object.entries(data).forEach((e) => console.log(e)));
+  return Object.entries(data).some(
+    ([key, value]) =>
+      "description".includes(key) && String(value).includes(search)
   );
-}
-
-export function mapList(data: Data[]) {
-  return data.map((e: Data) => ReturnData(e));
 }

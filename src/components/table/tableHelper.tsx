@@ -1,4 +1,4 @@
-import { Data } from "../Interfaces/table";
+import { Data } from "../../Interfaces/table";
 
 export function returnData(data: Data) {
   return (

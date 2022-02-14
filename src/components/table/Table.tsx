@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Data, Response } from "../Interfaces/table";
+import React, { useState } from "react";
+import { Data } from "../../Interfaces/table";
 import { filterData, returnData } from "./tableHelper";
+import useData from "./useData";
 
 export const Table: React.FC = () => {
   const [search, setSearch] = useState<string>("");
-  const [data, setData] = useState<[]>([]) as any;
+
+  const data = useData("./db.json");
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-
-  useEffect(() => {
-    fetch("./db.json")
-      .then((response): Promise<Response> => response.json())
-      .then((parsedData): Data[] => setData(parsedData.response.data));
-  }, []);
 
   const rows: [string][] = [
     ["WO ID"],
